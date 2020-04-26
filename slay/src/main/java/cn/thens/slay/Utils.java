@@ -8,12 +8,15 @@ import android.view.ViewTreeObserver;
  * @author 7hens
  */
 final class Utils {
-    static void onLaidOut(final View view, final Runnable runnable) {
-        boolean isLaidOut = view.getWidth() > 0 && view.getHeight() > 0;
+    private static boolean isLaidOut(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            isLaidOut = view.isLaidOut();
+            return view.isLaidOut();
         }
-        if (isLaidOut) {
+        return view.getWidth() > 0 || view.getHeight() > 0;
+    }
+
+    static void onLaidOut(final View view, final Runnable runnable) {
+        if (isLaidOut(view)) {
             runnable.run();
             return;
         }

@@ -17,13 +17,13 @@ dependencies {
 }
 ```
 
-2) 屏幕适配，推荐使用 BaseActivity。
+2) 屏幕适配，推荐在 BaseActivity 中使用。
 
 ```java
 public abstract class BaseActivity extends Activity {
-    // 这里推荐将 design 提升为全局变量，并在 Application.onCreate() 中进行初始化。
-    // 这里的参数 WIDTH, HEIGHT 代表着设计稿的尺寸，视图会根据这个尺寸进行缩放。
+    // 这里的参数 WIDTH, HEIGHT 表示设计稿的尺寸，视图会根据这个尺寸进行缩放。
     // 最后的参数表示 WIDTH 和 HEIGHT 所使用的单位（dp,sp,in 等），需要与 xml 中的单位保持一致。
+    // 推荐将 design 提升为全局变量，并在 Application.onCreate() 中进行初始化。
     private SLayDesign design = SLayDesign.create(context, WIDTH, HEIGHT, TypedValue.COMPLEX_UNIT_PX);
 
     @Override

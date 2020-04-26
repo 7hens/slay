@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 /**
  * @author 7hens
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class SLayParams<LP extends ViewGroup.MarginLayoutParams> {
     public static final int WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT;
     public static final int MATCH_PARENT = ViewGroup.LayoutParams.MATCH_PARENT;

@@ -2,14 +2,12 @@ package cn.thens.slay;
 
 import android.content.Context;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.Arrays;
 
@@ -19,13 +17,13 @@ import java.util.Arrays;
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "unused"})
 public final class SLayUI {
     private static final String TAG = "@SLayUI";
-    public static final SLayUI NO_SCALE = SLayUI.create(1);
-    public final float scaleX;
-    public final float scaleY;
+    public static final SLayUI NO_SCALE = SLayUI.create(1F);
+    private final float scaleX;
+    private final float scaleY;
 
     private SLayUI(float scaleX, float scaleY) {
         if (scaleX <= 0 || scaleY <= 0) {
-            throw new RuntimeException("both scaleX and scaleY should be greater than zero");
+            throw new IllegalArgumentException("both scaleX and scaleY should be greater than zero");
         }
         this.scaleX = scaleX;
         this.scaleY = scaleY;
@@ -94,8 +92,12 @@ public final class SLayUI {
     }
 
     public void addScaleChild(final FrameLayout parent, ViewGroup.LayoutParams parentLP, final View view) {
-        final int matchParent = SLayParams.MATCH_PARENT;
-        final int wrapContent = SLayParams.WRAP_CONTENT;
+        if (scaleX == 1F && scaleY == 1F) {
+            parent.addView(view);
+            return;
+        }
+        final int matchParent = ViewGroup.LayoutParams.MATCH_PARENT;
+        final int wrapContent = ViewGroup.LayoutParams.WRAP_CONTENT;
         int parentWidth = parentLP.width;
         int parentHeight = parentLP.height;
         if (parentWidth == matchParent || parentHeight == matchParent) {
@@ -131,7 +133,7 @@ public final class SLayUI {
         scaledContainer.addView(view);
         scaledContainer.setScaleX(scaleX);
         scaledContainer.setScaleY(scaleY);
-        new SLayParams.Frame(SLayUI.create(1 / scaleX, 1 / scaleY))
+        new SLayParams.Frame(create(1 / scaleX, 1 / scaleY))
                 .gravity(Gravity.CENTER)
                 .width(width)
                 .height(height)
@@ -150,10 +152,6 @@ public final class SLayUI {
 
     public int scaleY(float value) {
         return scale(value, scaleY);
-    }
-
-    public void setTextSize(TextView view, int size) {
-        view.setTextSize(TypedValue.COMPLEX_UNIT_PX, scaleX(size));
     }
 
     public interface Builder<L extends SLayParams> {
