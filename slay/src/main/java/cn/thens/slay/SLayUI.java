@@ -83,12 +83,7 @@ public final class SLayUI {
     }
 
     public void addScaleChild(final FrameLayout parent, final View view) {
-        ViewGroup.LayoutParams layoutParams = parent.getLayoutParams();
-        if (layoutParams == null) {
-            Log.e(TAG, "SLayUI.setContentView: parent's layoutParams could not be null");
-            return;
-        }
-        addScaleChild(parent, layoutParams, view);
+        addScaleChild(parent, parent.getLayoutParams(), view);
     }
 
     public void addScaleChild(final FrameLayout parent, ViewGroup.LayoutParams parentLP, final View view) {
@@ -135,8 +130,7 @@ public final class SLayUI {
         scaledContainer.setScaleY(scaleY);
         new SLayParams.Frame(create(1 / scaleX, 1 / scaleY))
                 .gravity(Gravity.CENTER)
-                .width(width)
-                .height(height)
+                .size(width, height)
                 .bind(scaledContainer);
         parent.addView(scaledContainer);
         return scaledContainer;
