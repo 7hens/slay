@@ -137,14 +137,14 @@ public class SLayParams<LP extends ViewGroup.MarginLayoutParams> {
     }
 
     public static class Group extends SLayParams<ViewGroup.MarginLayoutParams> {
-        public Group(SLayUI ui2) {
-            super(ui2, new ViewGroup.MarginLayoutParams(0, 0));
+        public Group(SLayUI ui) {
+            super(ui, new ViewGroup.MarginLayoutParams(0, 0));
         }
     }
 
     public static class Linear extends SLayParams<LinearLayout.LayoutParams> {
-        public Linear(SLayUI ui2) {
-            super(ui2, new LinearLayout.LayoutParams(0, 0));
+        public Linear(SLayUI ui) {
+            super(ui, new LinearLayout.LayoutParams(0, 0));
         }
 
         public Linear weight(int weight) {
@@ -159,8 +159,8 @@ public class SLayParams<LP extends ViewGroup.MarginLayoutParams> {
     }
 
     public static class Relative extends SLayParams<RelativeLayout.LayoutParams> {
-        public Relative(SLayUI ui2) {
-            super(ui2, new RelativeLayout.LayoutParams(0, 0));
+        public Relative(SLayUI ui) {
+            super(ui, new RelativeLayout.LayoutParams(0, 0));
         }
 
         public Relative rule(int verb) {
@@ -175,8 +175,8 @@ public class SLayParams<LP extends ViewGroup.MarginLayoutParams> {
     }
 
     public static class Frame extends SLayParams<FrameLayout.LayoutParams> {
-        public Frame(SLayUI ui2) {
-            super(ui2, new FrameLayout.LayoutParams(0, 0));
+        public Frame(SLayUI ui) {
+            super(ui, new FrameLayout.LayoutParams(0, 0));
         }
 
         public Frame gravity(int gravity) {
