@@ -4,17 +4,19 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import cn.thens.slay.SLayDesign;
+
 /**
  * @author 7hens
  */
 public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(int layoutResID) {
-        AppSLayDesign.get().adapter(this).setContentView(layoutResID);
+        SLayDesign.get().adapter(this).setContentView(layoutResID);
     }
 
     @Override
     public void setContentView(View view) {
-        AppSLayDesign.get().adapter(this).setContentView(view);
+        SLayDesign.get().adapter(this).setContentView(view);
     }
 }

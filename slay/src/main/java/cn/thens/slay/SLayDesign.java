@@ -14,51 +14,51 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 
 /**
  * @author 7hens
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public final class SLayDesign {
+    private static SLayDesign INSTANCE = new SLayDesign();
+    private AtomicBoolean isInitialized = new AtomicBoolean(false);
     private SLayUI ui = SLayUI.NO_SCALE;
 
-    private SLayDesign() {
+    public static SLayDesign get() {
+        return INSTANCE;
     }
 
-    public static SLayDesign create(Context context, float width, float height, int unit) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        int widthPx = (int) TypedValue.applyDimension(unit, width, displayMetrics);
-        int heightPx = (int) TypedValue.applyDimension(unit, height, displayMetrics);
-        return create(context, widthPx, heightPx);
-    }
-
-    private static SLayDesign create(Context context, final int width, final int height) {
-        final SLayDesign instance = new SLayDesign();
+    public void init(Context context, float width, float height, int unit) {
         if (width <= 0 || height <= 0) {
             throw new RuntimeException("both width and height should be greater than zero ");
         }
-        final Resources resources = context.getResources();
-        instance.resetUIWithDesign(resources, width, height);
-        context.getApplicationContext().registerComponentCallbacks(new ComponentCallbacks() {
-            @Override
-            public void onConfigurationChanged(Configuration newConfig) {
-                instance.resetUIWithDesign(resources, width, height);
-            }
+        if (isInitialized.compareAndSet(false, true)) {
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            final int widthPx = (int) TypedValue.applyDimension(unit, width, displayMetrics);
+            final int heightPx = (int) TypedValue.applyDimension(unit, height, displayMetrics);
+            final Resources resources = context.getResources();
+            resetUIWithDesign(resources, widthPx, heightPx);
+            //noinspection NullableProblems
+            context.getApplicationContext().registerComponentCallbacks(new ComponentCallbacks() {
+                @Override
+                public void onConfigurationChanged(Configuration newConfig) {
+                    resetUIWithDesign(resources, widthPx, heightPx);
+                }
 
-            @Override
-            public void onLowMemory() {
-            }
-        });
-        return instance;
+                @Override
+                public void onLowMemory() {
+                }
+            });
+        }
     }
 
     private void resetUIWithDesign(Resources resources, int width, int height) {
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         int orientation = resources.getConfiguration().orientation;
         boolean isVertical = orientation == Configuration.ORIENTATION_PORTRAIT;
-        ui = SLayUI.create(isVertical
-                ? 1F * displayMetrics.widthPixels / width
-                : 1F * displayMetrics.heightPixels / height);
+        ui = SLayUI.create(1F * displayMetrics.widthPixels / (isVertical ? width : height));
     }
 
     public Adapter adapter(Activity activity) {

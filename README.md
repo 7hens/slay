@@ -17,23 +17,31 @@ dependencies {
 }
 ```
 
-2) 屏幕适配，推荐在 BaseActivity 中使用。
+2) 初始化设计稿尺寸，视图会根据这个尺寸进行缩放。
+
+```java
+class MyApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // 最后的参数表示设计稿尺寸（WIDTH，HEIGHT）所使用的单位， 需要与 xml 中的尺寸单位保持一致。
+        SLayDesign.get().init(this, WIDTH, HEIGHT, TypedValue.COMPLEX_UNIT_PX);
+    }
+}
+```
+
+3) 屏幕适配，推荐在 BaseActivity 中使用。
 
 ```java
 public abstract class BaseActivity extends Activity {
-    // 这里的参数 WIDTH, HEIGHT 表示设计稿的尺寸，视图会根据这个尺寸进行缩放。
-    // 最后的参数表示 WIDTH 和 HEIGHT 所使用的单位（dp,sp,in 等），需要与 xml 中的单位保持一致。
-    // 推荐将 design 提升为全局变量，并在 Application.onCreate() 中进行初始化。
-    private SLayDesign design = SLayDesign.create(context, WIDTH, HEIGHT, TypedValue.COMPLEX_UNIT_PX);
-
     @Override
     public void setContentView(int layoutResID) {
-        design.adapter(this).setContentView(layoutResID);
+        SLayDesign.get().adapter(this).setContentView(layoutResID);
     }
 
     @Override
     public void setContentView(View view) {
-        design.adapter(this).setContentView(view);
+        SLayDesign.get().adapter(this).setContentView(view);
     }
 }
 ```

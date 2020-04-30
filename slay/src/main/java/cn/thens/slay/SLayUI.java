@@ -96,12 +96,14 @@ public final class SLayUI {
         int parentWidth = parentLP.width;
         int parentHeight = parentLP.height;
         if (parentWidth == matchParent || parentHeight == matchParent) {
-            Utils.onLaidOut(parent, new Runnable() {
+            final FrameLayout borderContainer = new FrameLayout(parent.getContext());
+            parent.addView(borderContainer, matchParent, matchParent);
+            Utils.onLaidOut(borderContainer, new Runnable() {
                 @Override
                 public void run() {
-                    int width = parent.getMeasuredWidth();
-                    int height = parent.getMeasuredHeight();
-                    addScaleChild(parent, view, width, height);
+                    int width = borderContainer.getMeasuredWidth();
+                    int height = borderContainer.getMeasuredHeight();
+                    addScaleChild(borderContainer, view, width, height);
                 }
             });
         } else if (parentWidth == wrapContent || parentHeight == wrapContent) {
