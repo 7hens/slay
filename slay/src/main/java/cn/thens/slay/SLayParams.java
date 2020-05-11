@@ -172,6 +172,70 @@ public class SLayParams<LP extends ViewGroup.MarginLayoutParams> {
             lp.addRule(verb, subject);
             return this;
         }
+        
+        public Relative centerInParent() {
+            return rule(RelativeLayout.CENTER_IN_PARENT);
+        }
+
+        public Relative centerHorizontal() {
+            return rule(RelativeLayout.CENTER_HORIZONTAL);
+        }
+
+        public Relative centerVertical() {
+            return rule(RelativeLayout.CENTER_VERTICAL);
+        }
+
+        public Relative alignParentLeft() {
+            return rule(RelativeLayout.ALIGN_PARENT_LEFT);
+        }
+
+        public Relative alignParentRight() {
+            return rule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        }
+
+        public Relative alignParentTop() {
+            return rule(RelativeLayout.ALIGN_PARENT_TOP);
+        }
+
+        public Relative alignParentBottom() {
+            return rule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        }
+
+        public Relative leftOf(int subject) {
+            return rule(RelativeLayout.LEFT_OF, subject);
+        }
+
+        public Relative rightOr(int subject) {
+            return rule(RelativeLayout.RIGHT_OF, subject);
+        }
+
+        public Relative above(int subject) {
+            return rule(RelativeLayout.ABOVE, subject);
+        }
+
+        public Relative below(int subject) {
+            return rule(RelativeLayout.BELOW, subject);
+        }
+
+        public Relative alignLeft(int subject) {
+            return rule(RelativeLayout.ALIGN_LEFT, subject);
+        }
+
+        public Relative alignRight(int subject) {
+            return rule(RelativeLayout.ALIGN_RIGHT, subject);
+        }
+
+        public Relative alignTop(int subject) {
+            return rule(RelativeLayout.ALIGN_TOP, subject);
+        }
+
+        public Relative alignBottom(int subject) {
+            return rule(RelativeLayout.ALIGN_BOTTOM, subject);
+        }
+
+        public Relative alignBaseline(int subject) {
+            return rule(RelativeLayout.ALIGN_BASELINE, subject);
+        }
     }
 
     public static class Frame extends SLayParams<FrameLayout.LayoutParams> {

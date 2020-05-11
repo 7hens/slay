@@ -151,6 +151,6 @@ public final class SLayUI {
     }
 
     public interface Builder<L extends SLayParams> {
-        View build(L layoutParams);
+        View build(L lParams);
     }
 }
