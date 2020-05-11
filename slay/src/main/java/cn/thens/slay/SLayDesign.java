@@ -79,16 +79,14 @@ public final class SLayDesign {
     }
 
     public Adapter adapter(FrameLayout parent, ViewGroup.LayoutParams layoutParams) {
-        return new Adapter(ui, parent, layoutParams);
+        return new Adapter(parent, layoutParams);
     }
 
-    public static class Adapter {
-        private final SLayUI ui;
+    public class Adapter {
         private final FrameLayout parent;
         private final ViewGroup.LayoutParams layoutParams;
 
-        Adapter(SLayUI ui, FrameLayout parent, ViewGroup.LayoutParams layoutParams) {
-            this.ui = ui;
+        Adapter(FrameLayout parent, ViewGroup.LayoutParams layoutParams) {
             this.parent = parent;
             this.layoutParams = layoutParams;
         }
